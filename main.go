@@ -3,12 +3,13 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"github.com/crumbhole/argocd-lovely-plugin/pkg/processor"
-	"github.com/otiai10/copy"
 	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
+
+	"github.com/crumbhole/argocd-lovely-plugin/pkg/processor"
+	"github.com/otiai10/copy"
 )
 
 var processors = []processor.Processor{
