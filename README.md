@@ -1,3 +1,11 @@
+# FORK DETAILS
+
+This plugin currently [does not support](https://github.com/crumbhole/argocd-lovely-plugin/issues/36) private repos. To work around this we can update the main.go with an os.getenv for the `GIT_ASKPASS` variable, which we pass in via a kubernetes secret. Currently just manually rebasing from the fork when new functionality is needed and then:
+
+- Build and push image:
+  - `docker buildx build --platform linux/amd64 -t <tag> --push .`
+
+
 # argocd-lovely-plugin
 An [Argo CD](https://argoproj.github.io/argo-cd/) plugin that behaves in a way we wish Argo CD behaved. This is only aimed at using Argo CD for GitOps - we do not use the UI for creating or modifying applications.
 
