@@ -100,6 +100,7 @@ func (c *Collection) doAllDirs(path string) (string, error) {
 }
 
 func main() {
+	os.Setenv("GIT_ASKPASS", "/usr/local/bin/git_askpass.sh")
 	dir, err := os.Getwd()
 	if err != nil {
 		log.Fatal(err)
