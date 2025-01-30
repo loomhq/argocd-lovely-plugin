@@ -89,6 +89,13 @@ func GetHelmRepoAddParams() ([]string, error) {
 	return config.GetStringListParam(f.EnvName(), f.DefaultVal, ' ')
 }
 
+// GetHelmCRDs returns whether to explicitly tell helm to include or skip CRDS
+// Set LOVELY_HELM_CRDS to configure this
+func GetHelmCRDs() bool {
+	f := Features()[HelmCRDs]
+	return config.GetBoolParam(f.EnvName(), f.DefaultVal)
+}
+
 // GetKustomizeMerge returns the yaml to strategic merge into kustomization.yaml
 // Set LOVELY_KUSTOMIZE_MERGE to some yaml you'd like strategic merged on any kustomization.yaml files used by kustomize
 func GetKustomizeMerge() string {
@@ -145,6 +152,13 @@ func GetHelmfilePath() string {
 	return config.GetStringParam(f.EnvName(), f.DefaultVal)
 }
 
+// GetHelmfileCRDs returns whether to explicitly tell helm to include or skip CRDS
+// Set LOVELY_HELM_CRDS to configure this
+func GetHelmfileCRDs() bool {
+	f := Features()[HelmfileCRDs]
+	return config.GetBoolParam(f.EnvName(), f.DefaultVal)
+}
+
 // GetHelmfileMerge returns the yaml to strategic merge into values.yaml
 // Set LOVELY_HELMFILE_MERGE to some yaml you'd like strategic merged into any helmfile.yaml files used by helmfile
 func GetHelmfileMerge() string {
@@ -164,4 +178,11 @@ func GetHelmfilePatch() string {
 func GetHelmfileTemplateParams() ([]string, error) {
 	f := Features()[HelmfileTemplateParams]
 	return config.GetStringListParam(f.EnvName(), f.DefaultVal, ' ')
+}
+
+// GetEnvPropagation returns extra parameters to pass to processor stage
+// Set LOVELY_ENV_PROPAGATION to activate env propagation
+func GetEnvPropagation() bool {
+	f := Features()[EnvPropagation]
+	return config.GetBoolParam(f.EnvName(), f.DefaultVal)
 }

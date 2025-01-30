@@ -77,7 +77,7 @@ func matchExpected(path string, givenValue string) error {
 	if string(expected) == givenValue {
 		return nil
 	}
-	return fmt.Errorf(prettyDiff(string(expected), givenValue))
+	return fmt.Errorf("%s", prettyDiff(string(expected), givenValue))
 }
 
 func matchExpectedWithStore(path string, givenValue string) error {
@@ -138,7 +138,7 @@ func testDirs(t *testing.T, path string, errorsExpected bool) {
 	}
 }
 
-// Test as sidecar only
+// TestDirectories runs Tests as sidecar only
 func TestDirectories(t *testing.T) {
 	os.RemoveAll(copyPath)
 	opt := copy.Options{
@@ -154,7 +154,7 @@ func TestDirectories(t *testing.T) {
 	os.RemoveAll(copyPath)
 }
 
-// Error Tests with copy
+// TestDirectoriesError runs Error Tests with copy
 func TestDirectoriesError(t *testing.T) {
 	testDirs(t, errorsPath, true)
 }

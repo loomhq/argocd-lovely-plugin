@@ -25,6 +25,7 @@ const (
 	HelmPatch
 	HelmTemplateParams
 	HelmRepoAddParams
+	HelmCRDs
 	KustomizeMerge
 	KustomizePatch
 	AllowGitCheckout
@@ -32,11 +33,13 @@ const (
 	HelmNamespace
 	HelmValues
 	HelmfilePath
+	HelmfileCRDs
 	HelmfileMerge
 	HelmfilePatch
 	HelmfileTemplateParams
+	EnvPropagation
 	FirstFeature = Plugins
-	LastFeature  = HelmfileTemplateParams
+	LastFeature  = EnvPropagation
 )
 
 // Feature is an individual configurable element of the plugin
@@ -125,6 +128,12 @@ func Features() map[FeatureID]Feature {
 			Name:        `lovely_helm_repo_add_params`,
 			Description: "Space separated extra parameters to `Helm repo add` as you might use on the command line. You're on your own here if you pass rubbish parameters. `--insecure-skip-tls-verify` if your helm chart is on an insecure HTTPS server.",
 		},
+		HelmCRDs: {
+			Title:       `Helm CRDs`,
+			Name:        `lovely_helm_crds`,
+			DefaultVal:  `true`,
+			Description: "Whether to include CRDs from a helm chart or skip them",
+		},
 		KustomizeMerge: {
 			Title:       `Kustomize Merge`,
 			Name:        `lovely_kustomize_merge`,
@@ -157,6 +166,12 @@ func Features() map[FeatureID]Feature {
 			Description: "Path to the helmfile binary used for this application",
 			// CollectionType: Single,
 		},
+		HelmfileCRDs: {
+			Title:       `Helmfile CRDs`,
+			Name:        `lovely_helmfile_crds`,
+			DefaultVal:  `true`,
+			Description: "Whether to include CRDs from helmfile or skip them",
+		},
 		HelmfileMerge: {
 			Title:       `Helmfile Merge`,
 			Name:        `lovely_helmfile_merge`,
@@ -171,6 +186,12 @@ func Features() map[FeatureID]Feature {
 			Title:       `Helmfile Template Parameters`,
 			Name:        `lovely_helmfile_template_params`,
 			Description: "Space separated extra parameters to `Helmfile template` as you might use on the command line. You're on your own here if you pass rubbish parameters.",
+		},
+		EnvPropagation: {
+			Title:       `Environment variables propagation`,
+			Name:        `lovely_env_propagation`,
+			DefaultVal:  `false`,
+			Description: "Whether to propagate and map ARGOCD_ENV_{VARIABLE} environment variables as {VARIABLE} to the downstream processor (Helm, Kustomize or Helmfile).",
 		},
 	}
 }
