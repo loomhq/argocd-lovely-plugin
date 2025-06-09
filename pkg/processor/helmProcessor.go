@@ -6,6 +6,7 @@ import (
 	"gopkg.in/yaml.v3"
 	"net/url"
 	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
 )
@@ -31,7 +32,7 @@ func (HelmProcessor) Name() string {
 
 // Enabled returns true only if this proessor can do work
 func (HelmProcessor) Enabled(_ string, path string) bool {
-	return reEntryInDir(path, regexp.MustCompile(`^Chart\.ya?ml$`))
+	return reEntryInDir(path, regexp.MustCompile(`^Chart\.ya?ml$`)) != ""
 }
 
 func contains(s []string, str string) bool {
@@ -80,7 +81,8 @@ func (h HelmProcessor) reposEnsure(path string) error {
 		`requirements.yml`,
 		`Chart.yaml`,
 		`Chart.yml`} {
-		yamlcontent, err := os.ReadFile(path + "/" + reqsFile)
+		// #nosec - G304 we've chosen both parts of this
+		yamlcontent, err := os.ReadFile(filepath.Join(path, reqsFile))
 		if err != nil {
 			continue
 		}
