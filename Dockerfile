@@ -1,4 +1,4 @@
-FROM golang:1.24.5 AS builder
+FROM golang:1.24.6 AS builder
  # https://github.com/mikefarah/yq/releases
  # renovate: datasource=github-releases depName=mikefarah/yq
 ARG YQ_VERSION=v4.47.1
@@ -38,7 +38,7 @@ COPY --from=builder /usr/local/bin/helm /usr/local/bin/helm
 COPY --from=builder /usr/local/bin/helmfile /usr/local/bin/helmfile
 COPY --from=builder /usr/local/bin/kustomize /usr/local/bin/kustomize
 COPY --from=builder /build/build/argocd-lovely-plugin /usr/local/bin/argocd-lovely-plugin
-RUN apk add git bash --no-cache
+RUN apk add git bash openssl jq curl --no-cache
 
 USER 999
 RUN mkdir -p /tmp/.helm
